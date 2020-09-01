@@ -6,7 +6,7 @@ const dimensionsPane = props => {
     return (
         <div>
             {
-                props.dimensions.map(e => <DimensionsView key={e.index} index={e.index} name={e.name} value={props.values[e.index]} onDimensionChange={props.onDimensionChange} featureName={featureName}></DimensionsView>)
+                props.dimensions.map(e => <DimensionsView key={e.index} index={e.index} name={e.name} value={props.values.filter(x => x.dimension === e.name)[0].value} onDimensionChange={props.onDimensionChange} featureName={featureName}></DimensionsView>)
             }
         </div>
     );
