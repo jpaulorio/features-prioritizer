@@ -1,0 +1,8 @@
+.DimensionView {
+    border: 1px solid darkgray;
+    margin: 10px;
+}
+
+input[type="range"] {
+    width:600px;
+  }
