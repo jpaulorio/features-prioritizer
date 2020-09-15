@@ -5,7 +5,7 @@ const featuresPane = props => {
     return (
         <div>
             {
-                props.features.map(e => <FeatureView index={e.index} key={e.index} name={e.name} dimensions={props.dimensions} values={e.values} onRemoveFeature={props.onRemoveFeature} onDimensionChange={props.onDimensionChange}></FeatureView>)
+                props.features.map(e => <FeatureView onMoveDimension={props.onMoveDimension} index={e.index} key={e.index} name={e.name} dimensions={props.dimensions} values={e.values} onRemoveFeature={props.onRemoveFeature} onDimensionChange={props.onDimensionChange}></FeatureView>)
             }
         </div>
     );

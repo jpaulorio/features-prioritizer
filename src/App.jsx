@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import update from "immutability-helper";
 import './App.css';
 import FeaturesPane from './components/featuresPane/FeaturesPane';
 import DimensionsEditor from './components/dimensionsEditor/DimensionsEditor';
@@ -149,6 +150,16 @@ function App() {
     setFeaturesState(newFeatureState.map((e, i) => { return { index: i, name: e.name, values: e.values } }));
   };
 
+  const onMoveDimensionHandler = (dragIndex, hoverIndex) => {
+    const draggedDimension = dimensionsState[dragIndex];
+    const hoveredDimension = dimensionsState[hoverIndex];
+    setDimensionsState(
+      update(dimensionsState, {
+        $splice: [[hoverIndex, 1, {...hoveredDimension, index: dragIndex}], [dragIndex, 1], [hoverIndex, 0, {...draggedDimension, index: hoverIndex}]]
+      })
+    );
+  };
+
   return (
     <div className="App">
       <div className="DimensionsEditorPane">
@@ -166,7 +177,7 @@ function App() {
             <input type="text" id="newDimensionName" name="newDimensionName" ref={dimensionNameInput}></input>
             <button onClick={addDimensionHandler}>Add new dimension</button>
           </div>
-          <FeaturesPane onRemoveFeature={onRemoveFeatureHandler} features={featuresState} dimensions={dimensionsState} onDimensionChange={onDimensionChangeHandler}></FeaturesPane>
+          <FeaturesPane onMoveDimension={onMoveDimensionHandler} onRemoveFeature={onRemoveFeatureHandler} features={featuresState} dimensions={dimensionsState} onDimensionChange={onDimensionChangeHandler}></FeaturesPane>
         </div>
       </div>
       <div className="RightPane">
