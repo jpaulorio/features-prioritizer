@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import FeaturesPane from './components/featuresPane/FeaturesPane';
+import DimensionsEditor from './components/dimensionsEditor/DimensionsEditor';
+import ResultsView from './components/resultsView/ResultsView';
 
 function App() {
   const [dimensionsState, setDimensionsState] = useState([
@@ -27,22 +29,79 @@ function App() {
     }
   ]);
 
+  useEffect(() => {
+    prioritizeFeatures();
+  }, [featuresState, dimensionsState]);
+
+  const [prioritizedFeatures, setPrioritizedFeaturesState] = useState(featuresState);
+
   const featureNameInput = React.createRef();
   const dimensionNameInput = React.createRef();
 
   const addFeatureHandler = () => {
+    const newFeatureName = featureNameInput.current.value;
+    const isEmptyResult = validateEmptyInput(newFeatureName);
+    if (!isEmptyResult.valid) {
+      alert(isEmptyResult.message);
+      return;
+    }
+    if (featureExists(newFeatureName)) {
+      alert("Feature " + newFeatureName + " already exists!");
+      return;
+    }
+
     const newValues = dimensionsState.map(e => { return { dimension: e.name, value: 5 } });
-    const newFeature = { index: featuresState.length, name: featureNameInput.current.value, values: newValues };
+    const newFeature = { index: featuresState.length, name: newFeatureName, values: newValues };
+
     setFeaturesState(
       [...featuresState, newFeature]
     );
+
+    ;
+  };
+
+  const validateEmptyInput = input => {
+    const validResult = {
+      valid: true,
+    };
+    const invalidResult = {
+      valid: false,
+      message: "Input cannot be empty!"
+    };
+
+    return input === "" ? invalidResult : validResult;
+  };
+
+  const dimensionExists = dimensionName => {
+    return dimensionsState.filter(e => e.name.toLocaleLowerCase() === dimensionName.toLocaleLowerCase()).length > 0;
+  };
+
+  const featureExists = featureName => {
+    return featuresState.filter(e => e.name.toLocaleLowerCase() === featureName.toLocaleLowerCase()).length > 0;
   };
 
   const addDimensionHandler = () => {
-    const newDimension = { index: dimensionsState.length, name: dimensionNameInput.current.value };
+    const newDimensionName = dimensionNameInput.current.value;
+    const isEmptyResult = validateEmptyInput(newDimensionName);
+    if (!isEmptyResult.valid) {
+      alert(isEmptyResult.message);
+      return;
+    }
+    if (dimensionExists(newDimensionName)) {
+      alert("Dimension " + newDimensionName + " already exists!");
+      return;
+    }
+    const newDimension = { index: dimensionsState.length, name: newDimensionName };
     setDimensionsState(
       [...dimensionsState, newDimension]
     );
+
+    const newFeatureState = featuresState.map(e => { return { ...e, values: [...e.values, { dimension: newDimension.name, value: 5 }] } });
+    setFeaturesState(
+      newFeatureState
+    );
+
+    ;
   };
 
   const getDimensionIndex = dimensionName => {
@@ -60,8 +119,8 @@ function App() {
         return f;
       })
       .sort((a, b) => b.rank - a.rank);
-    console.log(result);
-    return result;
+
+    setPrioritizedFeaturesState(result);
   };
 
   const onDimensionChangeHandler = (event) => {
@@ -78,20 +137,41 @@ function App() {
     setFeaturesState(newFeatureState);
   };
 
+  const removeDimensionHandler = event => {
+    const index = event.target.dataset.dimensionindex;
+    const newDimensionState = dimensionsState.slice(0, index).concat(dimensionsState.slice(index + 1, dimensionsState.length))
+    setDimensionsState(newDimensionState.map((e, i) => { return { index: i, name: e.name } }));
+  };
+
+  const onRemoveFeatureHandler = event => {
+    const index = event.target.dataset.featureindex;
+    const newFeatureState = featuresState.slice(0, index).concat(featuresState.slice(index + 1, featuresState.length))
+    setFeaturesState(newFeatureState.map((e, i) => { return { index: i, name: e.name, values: e.values } }));
+  };
+
   return (
     <div className="App">
-      <div>
-        <input type="text" id="newFeatureName" name="newFeatureName" ref={featureNameInput}></input>
-        <button onClick={addFeatureHandler}>Add new feature</button>
+      <div className="DimensionsEditorPane">
+        <DimensionsEditor dimensions={dimensionsState} onRemoveDimension={removeDimensionHandler}></DimensionsEditor>
       </div>
-      <div>
-        <input type="text" id="newDimensionName" name="newDimensionName" ref={dimensionNameInput}></input>
-        <button onClick={addDimensionHandler}>Add new dimension</button>
+      <div className="RightPane">
+        <div className="ControlsPane">
+          <div>
+            <input type="text" id="newFeatureName" name="newFeatureName" ref={featureNameInput}></input>
+            <button onClick={addFeatureHandler}>Add new feature</button>
+          </div>
+        </div>
+        <div className="ViewPane">
+          <div>
+            <input type="text" id="newDimensionName" name="newDimensionName" ref={dimensionNameInput}></input>
+            <button onClick={addDimensionHandler}>Add new dimension</button>
+          </div>
+          <FeaturesPane onRemoveFeature={onRemoveFeatureHandler} features={featuresState} dimensions={dimensionsState} onDimensionChange={onDimensionChangeHandler}></FeaturesPane>
+        </div>
       </div>
-      <div>
-        <button onClick={prioritizeFeatures}>Prioritize Features</button>
+      <div className="RightPane">
+        <ResultsView features={prioritizedFeatures}></ResultsView>
       </div>
-      <FeaturesPane features={featuresState} dimensions={dimensionsState} onDimensionChange={onDimensionChangeHandler}></FeaturesPane>
     </div>
   );
 }

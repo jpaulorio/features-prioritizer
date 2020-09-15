@@ -37,3 +37,19 @@
     transform: rotate(360deg);
   }
 }
+
+.DimensionsEditorPane {
+  float:left;
+}
+
+.ControlsPane {
+  /* float: left; */
+}
+
+.ViewPane {
+  /* float: left; */
+}
+
+.RightPane {
+  float: left;
+}
