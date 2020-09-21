@@ -115,7 +115,7 @@ function App() {
       .map(e => {
         const f = {
           name: e.name,
-          rank: e.values.map(v => v.value * (numDimensions - getDimensionIndex(v.dimension))).reduce((a, b) => a + b)
+          rank: e.values.map(v => v.value * (numDimensions - getDimensionIndex(v.dimension))).reduce((a, b) => a + b, null)
         };
         return f;
       })
