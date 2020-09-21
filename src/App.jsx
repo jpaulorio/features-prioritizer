@@ -139,8 +139,11 @@ function App() {
   };
 
   const removeDimensionHandler = event => {
-    const index = event.target.dataset.dimensionindex;
-    const newDimensionState = dimensionsState.slice(0, index).concat(dimensionsState.slice(index + 1, dimensionsState.length))
+    const index = parseInt(event.target.dataset.dimensionindex);
+    const dimensionName = dimensionsState[index].name;
+    const newFeatureState = featuresState.map(e => { return {...e, values: e.values.filter(v => v.dimension !== dimensionName)};});
+    setFeaturesState(newFeatureState);
+    const newDimensionState = dimensionsState.slice(0, index).concat(dimensionsState.slice(index + 1, dimensionsState.length));
     setDimensionsState(newDimensionState.map((e, i) => { return { index: i, name: e.name } }));
   };
 

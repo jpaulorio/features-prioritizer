@@ -17,13 +17,12 @@ yarn start
 
 # Known issues
 
-1. Removing a dimensions causes an error.
+1. Drag & drop allows dragging dimension across features. It should only allow drag within a feature.
 
 # Roadmap
 
-1. Rearrange dimensions by dragging and dropping them.
-2. Support dimensions with negative value (more is worse).
-3. Make it pretty!
+1. Support dimensions with negative value (more is worse).
+2. Make it pretty!
 
 # See it live
 
