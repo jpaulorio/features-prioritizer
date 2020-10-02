@@ -1,8 +1,22 @@
 .DimensionView {
     border: 1px solid darkgray;
-    margin: 10px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.DimensionView:not(:first-child) {
+    border-top: 0;
+}
+
+.DimensionView label {
+    margin: 0;
 }
 
 input[type="range"] {
-    width:600px;
+    position: relative;
+    top: 0.1rem;
+    left: 0.3rem;
   }

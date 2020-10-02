@@ -46,7 +46,16 @@ const dimensionsView = props => {
             style={{ opacity: isDragging ? 0 : 1 }}
             className="DimensionView">
             <label htmlFor="dimension">{name}:</label>            
-            <input type="range" data-featurename={featureName} id={name} name={name} defaultValue={value} onChange={props.onDimensionChange} step="1" min="0" max="10"></input>
+            <input type="range"
+                   data-featurename={featureName}
+                   id={name}
+                   name={name}
+                   defaultValue={value}
+                   onChange={props.onDimensionChange}
+                   step="1"
+                   min="0"
+                   max="10">
+            </input>
         </div>
     );
 }

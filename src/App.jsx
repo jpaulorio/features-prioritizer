@@ -164,27 +164,44 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="DimensionsEditorPane">
-        <DimensionsEditor dimensions={dimensionsState} onRemoveDimension={removeDimensionHandler}></DimensionsEditor>
+    <div className="App container">
+      <div className="row text-center mb-3">
+        <h2 className="col">Features Prioritizer</h2>
       </div>
-      <div className="RightPane">
-        <div className="ControlsPane">
-          <div>
-            <input type="text" id="newFeatureName" name="newFeatureName" ref={featureNameInput}></input>
-            <button onClick={addFeatureHandler}>Add new feature</button>
+      <div className="row mb-2">
+        <div className="ControlsPane ml-auto mr-auto col-md-6 col-xs-12">
+          <div className="input-group">
+            <input type="text" className="form-control" id="newFeatureName" name="newFeatureName" ref={featureNameInput}></input>
+            <div className="input-group-append">
+              <button type="button" className="btn btn-primary" onClick={addFeatureHandler}>Add new feature</button>
+            </div>
           </div>
         </div>
-        <div className="ViewPane">
-          <div>
-            <input type="text" id="newDimensionName" name="newDimensionName" ref={dimensionNameInput}></input>
-            <button onClick={addDimensionHandler}>Add new dimension</button>
+      </div>
+      <div className="row mb-4">
+        <div className="ControlsPane ml-auto mr-auto col-md-6 col-xs-12">
+          <div className="input-group">
+            <input type="text" className="form-control" id="newDimensionName" name="newDimensionName" ref={dimensionNameInput}></input>
+            <div className="input-group-append">
+              <button type="button" className="btn btn-primary" onClick={addDimensionHandler}>Add new dimension</button>
+            </div>
           </div>
-          <FeaturesPane onMoveDimension={onMoveDimensionHandler} onRemoveFeature={onRemoveFeatureHandler} features={featuresState} dimensions={dimensionsState} onDimensionChange={onDimensionChangeHandler}></FeaturesPane>
         </div>
       </div>
-      <div className="RightPane">
-        <ResultsView features={prioritizedFeatures}></ResultsView>
+      <div className="row">
+        <div className="DimensionsEditorPane col-lg col-md-12">
+          <DimensionsEditor dimensions={dimensionsState} onRemoveDimension={removeDimensionHandler}></DimensionsEditor>
+        </div>
+        <div className="RightPane col-md-12 col-lg-6">
+
+          <div className="ViewPane">
+
+            <FeaturesPane onMoveDimension={onMoveDimensionHandler} onRemoveFeature={onRemoveFeatureHandler} features={featuresState} dimensions={dimensionsState} onDimensionChange={onDimensionChangeHandler}></FeaturesPane>
+          </div>
+        </div>
+        <div className="RightPane col-lg col-md-6 offset-lg-0 offset-md-3">
+          <ResultsView features={prioritizedFeatures}></ResultsView>
+        </div>
       </div>
     </div>
   );
