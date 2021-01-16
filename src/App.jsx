@@ -194,7 +194,7 @@ function App() {
       <div className="row">
         <div className="DimensionsEditorPane col-lg col-md-12">
           <DimensionsEditor dimensions={dimensionsState} onRemoveDimension={removeDimensionHandler}
-          onDimensionChange={onMoveDimensionHandler}
+          onMoveDimension={onMoveDimensionHandler}
           ></DimensionsEditor>
         </div>
         <div className="RightPane col-md-12 col-lg-6">

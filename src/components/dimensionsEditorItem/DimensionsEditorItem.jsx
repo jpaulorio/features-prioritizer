@@ -23,7 +23,7 @@ const dimensionsEditorItem = props => {
                 return;
             }
 
-            props.onDimensionChange(dragIndex, hoverIndex);
+            props.onMoveDimension(dragIndex, hoverIndex);
 
             item.index = hoverIndex;
         }
@@ -39,7 +39,7 @@ const dimensionsEditorItem = props => {
     drag(drop(ref));
 
     return (
-                <div className="DimensionsEditorItem" key={props.index}
+                <div className={isDragging ? 'DimensionsEditorItem dragging' : 'DimensionsEditorItem' } key={props.index}
                 ref={ref}
                 style={{ opacity: isDragging ? 0 : 1 }}
                 >

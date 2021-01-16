@@ -12,9 +12,9 @@ const dimensionsEditor = props => {
                 dimensions.map(e => (
                 <DimensionsEditorItem
                 key={e.index}
-                                                                           index={e.index}
-                                                                           name={e.name}
-                                                                           onDimensionChange={props.onDimensionChange}/>))
+                index={e.index}
+                name={e.name}
+                onMoveDimension={props.onMoveDimension}/>))
             }
         </div >
     );

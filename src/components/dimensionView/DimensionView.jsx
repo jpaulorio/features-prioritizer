@@ -7,14 +7,14 @@ const dimensionsView = props => {
     const value = props.value;
 
     return (
-        <div
-            className="DimensionView">
+        <div className="DimensionView">
             <label htmlFor="dimension">{name}:</label>            
             <input type="range"
                    data-featurename={featureName}
                    id={name}
                    name={name}
                    defaultValue={value}
+                   onChange={props.onDimensionChange}
                    step="1"
                    min="0"
                    max="10">

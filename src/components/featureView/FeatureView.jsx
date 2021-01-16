@@ -8,10 +8,10 @@ const featureView = props => {
             <button type="button"
                     className="btn btn-danger mb-3"
                     data-featureindex={props.index} onClick={props.onRemoveFeature}>Delete</button>
-            <DimensionsPane onMoveDimension={props.onMoveDimension}
-                            dimensions={props.dimensions}
+            <DimensionsPane dimensions={props.dimensions}
                             values={props.values}
-                            featureName={props.name}>
+                            featureName={props.name}
+                            onDimensionChange={props.onDimensionChange}>
             </DimensionsPane>
         </div>
     );
