@@ -12,7 +12,7 @@ const featuresPane = props => {
                                                       dimensions={props.dimensions}
                                                       values={e.values}
                                                       onRemoveFeature={props.onRemoveFeature}
-                                                      onDimensionChange={props.onDimensionChange}>
+                                                      >
                 </FeatureView>))
             }
         </div>

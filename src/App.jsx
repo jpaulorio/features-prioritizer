@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import update from "immutability-helper";
 import './App.css';
 import FeaturesPane from './components/featuresPane/FeaturesPane';
@@ -139,7 +141,7 @@ function App() {
   };
 
   const removeDimensionHandler = event => {
-    const index = parseInt(event.target.dataset.dimensionindex);
+    const index = parseInt(event.target.dataset.dimensionindex, 10);
     const dimensionName = dimensionsState[index].name;
     const newFeatureState = featuresState.map(e => { return {...e, values: e.values.filter(v => v.dimension !== dimensionName)};});
     setFeaturesState(newFeatureState);
@@ -165,6 +167,7 @@ function App() {
 
   return (
     <div className="App container">
+    <DndProvider backend={HTML5Backend}>
       <div className="row text-center mb-3">
         <h2 className="col">Features Prioritizer</h2>
       </div>
@@ -190,19 +193,22 @@ function App() {
       </div>
       <div className="row">
         <div className="DimensionsEditorPane col-lg col-md-12">
-          <DimensionsEditor dimensions={dimensionsState} onRemoveDimension={removeDimensionHandler}></DimensionsEditor>
+          <DimensionsEditor dimensions={dimensionsState} onRemoveDimension={removeDimensionHandler}
+          onDimensionChange={onMoveDimensionHandler}
+          ></DimensionsEditor>
         </div>
         <div className="RightPane col-md-12 col-lg-6">
 
           <div className="ViewPane">
 
-            <FeaturesPane onMoveDimension={onMoveDimensionHandler} onRemoveFeature={onRemoveFeatureHandler} features={featuresState} dimensions={dimensionsState} onDimensionChange={onDimensionChangeHandler}></FeaturesPane>
+            <FeaturesPane onRemoveFeature={onRemoveFeatureHandler} features={featuresState} dimensions={dimensionsState} onDimensionChange={onDimensionChangeHandler}></FeaturesPane>
           </div>
         </div>
         <div className="RightPane col-lg col-md-6 offset-lg-0 offset-md-3">
           <ResultsView features={prioritizedFeatures}></ResultsView>
         </div>
       </div>
+      </DndProvider>
     </div>
   );
 }

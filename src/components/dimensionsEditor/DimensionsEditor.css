@@ -2,12 +2,3 @@
     /*border: 1px solid black;*/
     display: inline-block;
 }
-
-.DimensionsEditorItem {
-    border: 1px solid #007bff;
-    padding: 20px;
-}
-
-.DimensionsEditorItem:last-child {
-    border-top: 0; /* to avoid "double border" */
-}
