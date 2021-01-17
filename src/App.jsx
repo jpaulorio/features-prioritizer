@@ -172,6 +172,7 @@ function App() {
     <DndProvider backend={HTML5Backend}>
       <div className="row text-center mb-3">
         <h2 className="col">Features Prioritizer</h2>
+        <a href='https://github.com/jpaulorio/features-prioritizer' target="_blank"><img src='GitHub-Mark.png' width='16px' height='16px'/></a>
       </div>
       <div className="row mb-2">
         <div className="ControlsPane ml-auto mr-auto col-md-6 col-xs-12">
