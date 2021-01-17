@@ -32,7 +32,9 @@ Change the priority of the dimensions by repositioning them via drag'n drop.
 2. Allow for concurrent editing by multiple users.
 3. For concurrent editing, allow for a private mode so users don't see each other's changes until they're applied.
 4. Plot 2-D charts for each pair of dimensions (e.g.: 3 dimensions = 3 charts, 4 dimensions = 6 charts).
-4. Make it prettier!
+5. Write tests.
+6. Refactor code.
+7. Make it prettier!
 
 # See it live
 
