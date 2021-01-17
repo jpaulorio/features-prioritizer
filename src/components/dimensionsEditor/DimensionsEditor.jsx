@@ -14,6 +14,7 @@ const dimensionsEditor = props => {
                 key={e.index}
                 index={e.index}
                 name={e.name}
+                numDimensions={dimensions.length}
                 onMoveDimension={props.onMoveDimension}/>))
             }
         </div >

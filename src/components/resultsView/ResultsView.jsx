@@ -7,7 +7,7 @@ const resultsView = props => {
             <h2>Prioritized Features</h2>
             <ol>
                 {
-                    features.map((e, i) => <li key={i}>{e.name}</li>)
+                    features.map((e, i) => <li key={i}>{e.name + ': ' + e.rank}</li>)
                 }
             </ol>
         </div>

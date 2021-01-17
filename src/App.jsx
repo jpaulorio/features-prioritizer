@@ -23,12 +23,14 @@ function App() {
     {
       index: 0,
       name: "User Login",
-      values: [{ dimension: "Effort", value: 7 }, { dimension: "Value", value: 3 }]
+      values: [{ dimension: "Effort", value: 7 }, { dimension: "Value", value: 3 }],
+      rank: 17
     },
     {
       index: 1,
       name: "Add Item to Cart",
-      values: [{ dimension: "Effort", value: 3 }, { dimension: "Value", value: 6 }]
+      values: [{ dimension: "Effort", value: 3 }, { dimension: "Value", value: 6 }],
+      rank: 12
     }
   ]);
 

@@ -43,7 +43,8 @@ const dimensionsEditorItem = props => {
                 ref={ref}
                 style={{ opacity: isDragging ? 0 : 1 }}
                 >
-                    <p>{props.name}</p>
+                    <p>Name: {props.name}</p>
+                    <p>Weight: {props.numDimensions - props.index}</p>
                     <button type="button" className="btn btn-danger" data-dimensionindex={props.index} onClick={props.onRemoveDimension}>
                         Remove
                     </button>
