@@ -15,6 +15,8 @@ const dimensionsEditor = props => {
                 index={e.index}
                 name={e.name}
                 numDimensions={dimensions.length}
+                isNegative={e.isNegative}
+                onNegativeChange={props.onNegativeChange}
                 onRemoveDimension={props.onRemoveDimension}
                 onMoveDimension={props.onMoveDimension}/>))
             }

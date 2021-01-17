@@ -11,11 +11,13 @@ function App() {
   const [dimensionsState, setDimensionsState] = useState([
     {
       index: 0,
-      name: "Effort"
+      name: "Effort",
+      isNegative: false
     },
     {
       index: 1,
-      name: "Value"
+      name: "Value",
+      isNegative: false
     }
   ]);
 
@@ -119,7 +121,14 @@ function App() {
       .map(e => {
         const f = {
           name: e.name,
-          rank: e.values.map(v => v.value * (numDimensions - getDimensionIndex(v.dimension))).reduce((a, b) => a + b, null)
+          rank: e.values.map(v => {
+          const dimensionIndex = getDimensionIndex(v.dimension);
+          const dimension = dimensionsState[dimensionIndex];
+          const weight = numDimensions - dimensionIndex;
+          const adjustedValue = dimension.isNegative ? (10 - v.value) : v.value;
+          return adjustedValue * weight;
+          })
+          .reduce((a, b) => a + b, null)
         };
         return f;
       })
@@ -167,12 +176,20 @@ function App() {
     );
   };
 
+  const onNegativeChangeHandler = event => {
+    const index = parseInt(event.target.dataset.dimensionindex, 10);
+    const dimension = {...dimensionsState[index], isNegative: event.target.checked};
+    dimensionsState.splice(index, 1, dimension);
+    const newDimensionState = dimensionsState.slice();
+    setDimensionsState(newDimensionState);
+  };
+
   return (
     <div className="App container">
     <DndProvider backend={HTML5Backend}>
       <div className="row text-center mb-3">
         <h2 className="col">Features Prioritizer</h2>
-        <a href='https://github.com/jpaulorio/features-prioritizer' target="_blank"><img src='GitHub-Mark.png' width='16px' height='16px'/></a>
+        <a href='https://github.com/jpaulorio/features-prioritizer' target="_blank" rel="noreferrer noopener"><img src='GitHub-Mark.png' alt='GitHub repo' width='16px' height='16px'/></a>
       </div>
       <div className="row mb-2">
         <div className="ControlsPane ml-auto mr-auto col-md-6 col-xs-12">
@@ -196,8 +213,11 @@ function App() {
       </div>
       <div className="row">
         <div className="DimensionsEditorPane col-lg col-md-12">
-          <DimensionsEditor dimensions={dimensionsState} onRemoveDimension={removeDimensionHandler}
+          <DimensionsEditor
+          dimensions={dimensionsState}
+          onRemoveDimension={removeDimensionHandler}
           onMoveDimension={onMoveDimensionHandler}
+          onNegativeChange={onNegativeChangeHandler}
           ></DimensionsEditor>
         </div>
         <div className="RightPane col-md-12 col-lg-6">

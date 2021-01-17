@@ -28,9 +28,11 @@ Change the priority of the dimensions by repositioning them via drag'n drop.
 
 # Roadmap
 
-1. Support dimensions with negative value (more is worse).
-2. Add custom weights to dimensions.
-3. Make it prettier!
+1. Add custom weights to dimensions.
+2. Allow for concurrent editing by multiple users.
+3. For concurrent editing, allow for a private mode so users don't see each other's changes until they're applied.
+4. Plot 2-D charts for each pair of dimensions (e.g.: 3 dimensions = 3 charts, 4 dimensions = 6 charts).
+4. Make it prettier!
 
 # See it live
 
